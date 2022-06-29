@@ -1,0 +1,15 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_simpleLinuxVM_name": {
+            "value": null
+        },
+        "disks_simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3_externalid": {
+            "value": null
+        },
+        "networkInterfaces_simpleLinuxVMNetInt_externalid": {
+            "value": null
+        }
+    }
+}
