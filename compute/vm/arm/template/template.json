@@ -39,8 +39,7 @@
                         "createOption": "FromImage",
                         "caching": "ReadWrite",
                         "managedDisk": {
-                            "storageAccountType": "Standard_LRS",
-                            "id": "[parameters('disks_simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3_externalid')]"
+                            "storageAccountType": "Standard_LRS"
                         },
                         "deleteOption": "Detach",
                         "diskSizeGB": 30
