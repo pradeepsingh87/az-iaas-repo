@@ -1,0 +1,75 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {
+        "virtualMachines_simpleLinuxVM_name": {
+            "defaultValue": "simpleLinuxVM",
+            "type": "String"
+        },
+        "disks_simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3_externalid": {
+            "defaultValue": "/subscriptions/fba1904a-c56d-4ebe-9574-ebf8f29ec643/resourceGroups/psb-rg/providers/Microsoft.Compute/disks/simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3",
+            "type": "String"
+        },
+        "networkInterfaces_simpleLinuxVMNetInt_externalid": {
+            "defaultValue": "/subscriptions/fba1904a-c56d-4ebe-9574-ebf8f29ec643/resourceGroups/psb-rg/providers/Microsoft.Network/networkInterfaces/simpleLinuxVMNetInt",
+            "type": "String"
+        }
+    },
+    "variables": {},
+    "resources": [
+        {
+            "type": "Microsoft.Compute/virtualMachines",
+            "apiVersion": "2022-03-01",
+            "name": "[parameters('virtualMachines_simpleLinuxVM_name')]",
+            "location": "eastus",
+            "properties": {
+                "hardwareProfile": {
+                    "vmSize": "Standard_B2s"
+                },
+                "storageProfile": {
+                    "imageReference": {
+                        "publisher": "Canonical",
+                        "offer": "UbuntuServer",
+                        "sku": "18.04-LTS",
+                        "version": "latest"
+                    },
+                    "osDisk": {
+                        "osType": "Linux",
+                        "name": "[concat(parameters('virtualMachines_simpleLinuxVM_name'), '_OsDisk_1_abe45529aff549f4a8cce1514089f9d3')]",
+                        "createOption": "FromImage",
+                        "caching": "ReadWrite",
+                        "managedDisk": {
+                            "storageAccountType": "Standard_LRS",
+                            "id": "[parameters('disks_simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3_externalid')]"
+                        },
+                        "deleteOption": "Detach",
+                        "diskSizeGB": 30
+                    },
+                    "dataDisks": []
+                },
+                "osProfile": {
+                    "computerName": "[parameters('virtualMachines_simpleLinuxVM_name')]",
+                    "adminUsername": "psb",
+                    "linuxConfiguration": {
+                        "disablePasswordAuthentication": false,
+                        "provisionVMAgent": true,
+                        "patchSettings": {
+                            "patchMode": "ImageDefault",
+                            "assessmentMode": "ImageDefault"
+                        }
+                    },
+                    "secrets": [],
+                    "allowExtensionOperations": true,
+                    "requireGuestProvisionSignal": true
+                },
+                "networkProfile": {
+                    "networkInterfaces": [
+                        {
+                            "id": "[parameters('networkInterfaces_simpleLinuxVMNetInt_externalid')]"
+                        }
+                    ]
+                }
+            }
+        }
+    ]
+}
