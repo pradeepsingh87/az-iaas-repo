@@ -6,10 +6,10 @@
             "value": "psb-vm-arm"
         },
         "disks_simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3_externalid": {
-            "value": "simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3"
+            "value": "/subscriptions/fba1904a-c56d-4ebe-9574-ebf8f29ec643/resourceGroups/psb-rg/providers/Microsoft.Compute/disks/simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3"
         },
         "networkInterfaces_simpleLinuxVMNetInt_externalid": {
-            "value": "simpleLinuxVMNetInt"
+            "value": "/subscriptions/fba1904a-c56d-4ebe-9574-ebf8f29ec643/resourceGroups/psb-rg/providers/Microsoft.Network/networkInterfaces/simpleLinuxVMNetInt"
         }
     }
 }
