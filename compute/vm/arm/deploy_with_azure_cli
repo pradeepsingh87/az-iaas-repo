@@ -1,4 +1,4 @@
-az deployment group create --name ExampleDeployment --resource-group ExampleGroup --template-file template/template.json --parameters template/parameters.json
+az deployment group create --name ExampleDeployment --resource-group PSB-RG --template-file template/template.json --parameters template/parameters.json
   
 az deployment group create \
  --name ExampleDeployment \
