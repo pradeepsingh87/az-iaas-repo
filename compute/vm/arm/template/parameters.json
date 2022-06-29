@@ -27,7 +27,7 @@
       "value": "Standard_D2s_v3"
     },
     "location": {
-      "value": "us-east"
+      "value": "useast"
     },
     "vmName": {
       "value": "psb-arm-vm"
