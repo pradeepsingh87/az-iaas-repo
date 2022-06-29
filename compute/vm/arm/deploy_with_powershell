@@ -1,0 +1,4 @@
+New-AzResourceGroupDeployment `
+  -Name mydeployment -ResourceGroupName 'psb-rg' `
+  -TemplateFile './template/template.json' `
+  -TemplateParameterFile './template/parameters.json'
