@@ -1,0 +1,14 @@
+az deployment group create \
+  --name ExampleDeployment \
+  --resource-group ExampleGroup \
+  --template-file template/template.json \ 
+  --template-parameter-file template/parameters.json
+  
+  az deployment group create \
+  --name ExampleDeployment \
+  --resource-group ExampleGroup \
+  --template-uri "https://raw.githubusercontent.com/pradeepsingh87/az-iaas-repo/main/compute/vm/arm/template/template.json" \
+  --parameters virtualMachines_simpleLinuxVM_name=psb-arm-vm 
+  --parameters disks_simpleLinuxVM_OsDisk_1_abe45529aff549f4a8cce1514089f9d3_externalid=null 
+  --parameters networkInterfaces_simpleLinuxVMNetInt_externalid = null
+  
