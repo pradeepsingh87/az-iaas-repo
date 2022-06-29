@@ -3,10 +3,10 @@
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
-      "value": psb
+      "value": "psb"
     },
     "adminPassword": {
-      "value": myvmpassword
+      "value": "myvmpassword123"
     },
     "dnsLabelPrefix": {
       "value": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id, parameters('vmName'))))]"
