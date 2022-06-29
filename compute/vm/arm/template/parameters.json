@@ -9,7 +9,7 @@
       "value": "myvmpassword123"
     },
     "dnsLabelPrefix": {
-      "value": "[toLower(format('{0}-{1}', parameters('vmName'), uniqueString(resourceGroup().id, parameters('vmName'))))]"
+      "value": "psb-dns"
     },
     "publicIpName": {
       "value": "myPublicIP"
