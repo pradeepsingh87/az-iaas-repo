@@ -1,0 +1,11 @@
+ACR_NAME='psbdemoacr' # Azure Container Registery Name . Needs to be gloabally unique
+
+# Create Azure Registery
+az acr create \
+  --resource-group psb-rg \
+  --name $ACR_NAME \
+  --sku Standard
+  
+# Log into the container registery . 
+az acr login --name $ACR_NAME
+  
