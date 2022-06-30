@@ -24,3 +24,7 @@ docker push $ACR_LOGINSERVERNAME/fastapi-image:v1
 # Zips up all the resources and code and upload that into ACR to build our container image in Azure container registery .
 # Once the build is finished it wil then be pushed into ACR for us to use.
 az acr build --image "fastapi-image:v1-acr-task" --registry $ACR_NAME .
+
+# Get a listing of the repository and images / tags in our Azure Container Registry
+az acr repository list --name $ACR_NAME --output table
+az acr repository show-tags --name $ACR_NAME --repository fastapi-image  --output table
