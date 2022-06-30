@@ -1,0 +1,41 @@
+
+# ACI provides you a Serverless Container Platform . Its most effectivly used for 
+#    Simple applications
+#    Task automation
+#    Build Jobs
+# Acess application via internet or on an azure virtual network.
+# You can specify the amount of CPU and memory you need for your container.
+# If persistent storage is required use Azure Files mounts.
+# Containers can be deployed in Groups . 
+# You can define a restart policy - always , on failure and never .
+
+# Deploying Containers in Azure Container Instance from Container Registry.Other regsiteries(Docker Hub , public or private can also be used)
+# Create a service principal and configure it with correct role based access control to pull images from ACR .
+
+ACR_NAME = 'psbdemoacr'
+ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query id --output tsv)
+
+SP_NAME=acr-service-principal
+SP_PASSWD=$(az ad sp create-for-rbac \
+              --name http://$ACR_NAME-pull \
+              --scopes $ACR_REGISTRY_ID \
+              --role acrpull \
+              --query password \
+              --output tsv)
+              
+SP_APPID=$(az ad sp show \
+              --id http://$ACR_NAME-pull \
+              --query appId \
+              --output tsv)
+
+ACR_LOGINSERVER=$(az acr show --name $ACR_NAME --query loginServer --output tsv)
+
+az container create \
+  --resource-group psb-rg \
+  --name psb-demo-fastapi-cli \
+  --dns-name-label psb-demo-fastapi-cli
+  --ports 80 \
+  --image $ACR_LOGINSERVER/fastapi:v1 \
+  --registry-login-server $ACR_LOGINSERVER \
+  --registery-username $SP_APPID \
+  --registry-password $SP_PASSWD
