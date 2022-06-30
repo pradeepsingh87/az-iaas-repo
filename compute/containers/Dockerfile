@@ -1,12 +1,4 @@
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1
-
-RUN mkdir /app
-WORKDIR /app
-
-COPY ./webapp/bin/Release/netcoreapp3.1/publish ./
-COPY ./config.sh ./
-
-RUN bash config.sh
-
-EXPOSE 80
-ENTRYPOINT ["dotnet", "webapp.dll"]
+FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7 
+COPY ./app /app 
+COPY requirements.txt .
+RUN pip --no-cache-dir install -r requirements.txt
