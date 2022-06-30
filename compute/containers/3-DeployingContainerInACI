@@ -12,20 +12,25 @@
 # Deploying Containers in Azure Container Instance from Container Registry.Other regsiteries(Docker Hub , public or private can also be used)
 # Create a service principal and configure it with correct role based access control to pull images from ACR .
 
-ACR_NAME = 'psbdemoacr'
+ACR_NAME='psbdemoacr'
+
+# Get the resource id of our Azure container registery
 ACR_REGISTRY_ID=$(az acr show --name $ACR_NAME --query id --output tsv)
 
+# Define a variable for service principal name  
 SP_NAME=acr-service-principal
+
+# Create a service principal and retrieve and stores its password .
 SP_PASSWD=$(az ad sp create-for-rbac \
-              --name http://$ACR_NAME-pull \
+              --name $SP_NAME \
               --scopes $ACR_REGISTRY_ID \
               --role acrpull \
               --query password \
               --output tsv)
-              
-SP_APPID=$(az ad sp show \
-              --id http://$ACR_NAME-pull \
-              --query appId \
+# Get the APPID of the service principal which we will use as the username when authenticating to Azure Container Registery .               
+SP_APPID=$(az ad sp list \
+              --display-name $SP_NAME \
+              --query AppId \
               --output tsv)
 
 ACR_LOGINSERVER=$(az acr show --name $ACR_NAME --query loginServer --output tsv)
