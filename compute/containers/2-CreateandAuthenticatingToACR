@@ -1,4 +1,5 @@
-ACR_NAME='psbdemoacr' # Azure Container Registery Name . Needs to be gloabally unique
+# Azure Container Registery Name . Needs to be gloabally unique
+ACR_NAME='psbdemoacr' 
 
 # Create Azure Registery
 az acr create \
@@ -9,3 +10,17 @@ az acr create \
 # Log into the container registery . 
 az acr login --name $ACR_NAME
   
+# Pushing an image into ACR using Docker Tools  
+ACR_LOGINSERVERNAME=$(az acr show --name $ACR_NAME --query loginServer --output tsv)
+
+# Add an alias to local container image using this login server and a new name and tag .
+# This tells docker where to push the docker image . 
+docker tag fastapi-image:v1 $ACR_LOGINSERVERNAME/fastapi-image:v1
+
+# Push the image to the ACR
+docker push $ACR_LOGINSERVERNAME/fastapi-image:v1
+
+# Pushing an image into ACR using ACR taks . Uses the local Docker file in the current directory.
+# Zips up all the resources and code and upload that into ACR to build our container image in Azure container registery .
+# Once the build is finished it wil then be pushed into ACR for us to use.
+az acr build --image "fastapi-image:v1-acr-task" --registry $ACR_NAME .
